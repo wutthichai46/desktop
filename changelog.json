@@ -1,5 +1,6 @@
 {
   "releases": {
+    "2.9.13-test1": ["[New] Sign dev builds"],
     "2.9.13-beta1": [
       "[New] Add support for notifications of pull request reviews - #14175",
       "[Fixed] Pull requests adhere to temporal laws again - #14238",
