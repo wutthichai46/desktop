@@ -12,7 +12,10 @@ import {
   CloseKeywordFilter,
   isIssueClosingContext,
 } from './close-keyword-filter'
+<<<<<<< Updated upstream
 import { CommitMentionLinkFilter } from './commit-mention-link-filter'
+=======
+>>>>>>> Stashed changes
 
 export interface INodeFilter {
   /**
@@ -73,7 +76,10 @@ export const buildCustomMarkDownNodeFilterPipe = memoizeOne(
       new TeamMentionFilter(repository),
       new MentionFilter(repository),
       new CommitMentionFilter(repository),
+<<<<<<< Updated upstream
       new CommitMentionLinkFilter(repository),
+=======
+>>>>>>> Stashed changes
       new VideoTagFilter(),
       new VideoLinkFilter()
     )
