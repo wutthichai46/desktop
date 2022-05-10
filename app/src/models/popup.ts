@@ -170,7 +170,7 @@ export type Popup =
     }
   | {
       type: PopupType.ReleaseNotes
-      newRelease: ReleaseSummary
+      newReleases: ReadonlyArray<ReleaseSummary>
     }
   | {
       type: PopupType.DeletePullRequest
@@ -331,6 +331,7 @@ export type Popup =
       checkRuns: ReadonlyArray<IRefCheck>
       repository: GitHubRepository
       prRef: string
+      failedOnly: boolean
     }
   | { type: PopupType.WarnForcePush; operation: string; onBegin: () => void }
   | {
