@@ -12,6 +12,7 @@ import { TextBox } from '../lib/text-box'
 import { Row } from '../lib/row'
 
 import { match, IMatch, IMatches } from '../../lib/fuzzy-find'
+import { AriaLiveContainer } from '../accessibility/aria-live-container'
 
 /** An item in the filter list. */
 export interface IFilterListItem {
@@ -171,6 +172,7 @@ interface IFilterListProps<T extends IFilterListItem> {
 interface IFilterListState<T extends IFilterListItem> {
   readonly rows: ReadonlyArray<IFilterListRow<T>>
   readonly selectedRow: number
+  readonly filterValue: string
 }
 
 /**
@@ -288,8 +290,14 @@ export class FilterList<T extends IFilterListItem> extends React.Component<
   }
 
   public render() {
+    const itemRows = this.state.rows.filter(row => row.kind === 'item')
+    const resultsPluralized = itemRows.length === 1 ? 'result' : 'results'
+
     return (
       <div className={classnames('filter-list', this.props.className)}>
+        <AriaLiveContainer trackedUserInput={this.state.filterValue}>
+          {itemRows.length} {resultsPluralized}
+        </AriaLiveContainer>
         {this.props.renderPreList ? this.props.renderPreList() : null}
 
         {this.renderFilterRow()}
@@ -606,7 +614,7 @@ function createStateUpdate<T extends IFilterListItem>(
     selectedRow = flattenedRows.findIndex(i => i.kind === 'item')
   }
 
-  return { rows: flattenedRows, selectedRow }
+  return { rows: flattenedRows, selectedRow, filterValue: filter }
 }
 
 function getItemFromRowIndex<T extends IFilterListItem>(
